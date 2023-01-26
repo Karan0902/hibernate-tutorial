@@ -18,7 +18,6 @@ public class QueryStudentDemo {
 									.configure("hibernate.cfg.xml")
 									.addAnnotatedClass(Student.class)
 									.buildSessionFactory();
-		
 //		create session
 		Session session = factory.getCurrentSession();
 		
@@ -47,6 +46,7 @@ public class QueryStudentDemo {
 			students = session.createQuery("from Student s where s.email LIKE '%luv2code.com'").getResultList();
 			System.out.println("\nStudents with email ===>");
 			displayStudents(students);
+			
 			
 //			commit the transaction
 			session.getTransaction().commit();
