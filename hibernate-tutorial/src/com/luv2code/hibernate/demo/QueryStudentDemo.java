@@ -1,5 +1,7 @@
 package com.luv2code.hibernate.demo;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -21,23 +23,30 @@ public class QueryStudentDemo {
 		Session session = factory.getCurrentSession();
 		
 		try {
-//			create a student object
-			System.out.println("Creating a new student object...");
-			Student tempStudent = new Student("Paul", "Wall", "paul@luv2code.com");
-
 //			start a transaction
 			session.beginTransaction();
+						
+//			query students
+			List<Student> students = session.createQuery("from Student").getResultList();
+			displayStudents(students);
 			
-//			save the student object
-			System.out.println("Saving the student...");
-			session.save(tempStudent);
+//			query students: lastName='Doe'
+			students = session.createQuery("from Student s where s.lastName='Doe'").getResultList();
+			System.out.println("\nStudents who have last name of Doe");
+			displayStudents(students);
+			
 			
 //			commit the transaction
 			session.getTransaction().commit();
-			
 			System.out.println("Done!");
 		} finally {
 			factory.close();
+		}
+	}
+
+	private static void displayStudents(List<Student> students) {
+		for(Student student : students) {
+			System.out.println("\nGet the student: " + student);
 		}
 	}
 
