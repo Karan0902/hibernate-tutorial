@@ -31,14 +31,18 @@ public class DeleteStudentDemo {
 			System.out.println("\nGetting student with id: " + studentId);
 			Student myStudent = session.get(Student.class, studentId);
 
-
-//			delete the student
-			System.out.println("Deleting the student... " + myStudent);
-			session.delete(myStudent);
+//			delete the student using session
+//			System.out.println("Deleting the student... " + myStudent);
+//			session.delete(myStudent);
 			
 			
-//			commit the transaction
+//			delete student id=2 using HQL query
+			System.out.println("Delete student with id=2");
+			session.createQuery("delete from Student where id=2").executeUpdate();
+			
 			session.getTransaction().commit();
+			
+			
 			
 		
 			System.out.println("Done!");
